@@ -65,30 +65,51 @@ gyms nearby: number of gyms in neighborhood, distance < 2km, google maps
 domains, specify the range of the criterion’s variability, in the case of others: list the values. What is  
 the nature (gain / cost) of the individual criteria?  
 **A:** 
+price : continuous, 1700,8000
+area : continuous, 32.5,78
+aesthetics : discrete, 2,10
+transit : continuous, 17,51
+gyms nearby : discrete, 1,10
 
 **Q**:Are all criteria of equal importance (should they have the same ”weights”)? If not, can the relative  
 importance of the criteria under consideration be expressed in terms of weights? In this case, estimate  
 the weights of each criterion on a scale of 1 to 10. Are there any criteria among the criteria that are  
 completely or almost invalid / irrelevant?  
 **A:**
+importance : price > area > transit,aesthetics > gyms nearby
 
+estimated weights :
+#TODO
+we reduced the dataset to only relevant criteria
+#TODO
 **Q**: Are there dominated alternatives among the considered data set? If so, present all of them (dominating  
 and dominated alternative), giving their names and values on the individual criteria. 
 **A:**
 
+Dominating:
+#TODO
+Dominated:
+#TODO
 **Q**: What should the theoretically best alternative look like in your opinion? Is it a small advantage on  
 many criteria, or rather a strong advantage on few (but key) criteria? Which?  
 **A:**
+
+Under 3000 zł, close to Politechnika, with 3-4 gyms to choose for, aesthetically pleasing (>8), and spacious (>50m^2?) 
+
+Small advantage on all criteria
 
 **Q**: Which of the considered alternatives (provide name and values on individual criteria) seems to be the  
 best / definitely better than the others? Is it determined by one reason (e.g. definitely the lowest  
 price) or rather the overall value of the criteria? Does this alternative still have any weaknesses? 
 **A:**
+#TODO
+
 
 **Q**: Which of the considered alternatives (provide name and values on individual criteria) seems to be the  
 worst / definitely worse than the others? Is it determined by one reason (e.g. definitely the highest  
 price), or rather the overall value of the criteria? Does this alternative still have any strengths?
 **A:**
+#TODO
 
 
 
