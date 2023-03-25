@@ -19,8 +19,8 @@
 
 - 12-50 alternatives
 - 4-9 criteria
-- >4 decision classes ( boundary profiles )
-- >4 pairwise comparisons
+- >=4 decision classes ( boundary profiles )
+- >=4 pairwise comparisons
 - one method should perform at least 2 iterations of problem solving
 
 
