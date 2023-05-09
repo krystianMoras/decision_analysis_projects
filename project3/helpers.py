@@ -2,8 +2,9 @@ import torch
 import torch.optim as optim
 from torch.utils.data import DataLoader, Dataset
 from tqdm import tqdm
-from sklearn.metrics import roc_auc_score
+from sklearn.metrics import roc_auc_score, f1_score
 from functools import partial
+import numpy as np
 
 
 class NumpyDataset(Dataset):
@@ -38,11 +39,16 @@ def CreateDataLoader(X, y):
     dataset = NumpyDataset(X, y)
     return DataLoader(dataset, batch_size=len(dataset))
 
+def F1(x, target):
+    y_pred = np.where(x.detach().numpy()[:, 0] > 0.5, 1, 0)
+    return f1_score(target.detach().numpy(), y_pred)
+
 
 def Train(model, train_dataloader, test_dataloader, path, lr=0.01, epoch_nr=200):
     optimizer = optim.AdamW(model.parameters(), lr=lr, betas=(0.9, 0.99))
     best_acc = 0.0
     best_auc = 0.0
+    f1_mem = 0.0
     for epoch in tqdm(range(epoch_nr)):
         for _, data in enumerate(train_dataloader, 0):
             inputs, labels = data
@@ -53,10 +59,12 @@ def Train(model, train_dataloader, test_dataloader, path, lr=0.01, epoch_nr=200)
             optimizer.step()
             acc = Accuracy(outputs, labels)
             auc = AUC(outputs, labels)
+            f1 = F1(outputs, labels)
 
         if acc > best_acc:
             best_acc = acc
             best_auc = auc
+            f1_mem = f1
             with torch.no_grad():
                 for i, data in enumerate(test_dataloader, 0):
                     inputs, labels = data
@@ -64,6 +72,7 @@ def Train(model, train_dataloader, test_dataloader, path, lr=0.01, epoch_nr=200)
                     loss_test = Regret(outputs, labels)
                     acc_test = Accuracy(outputs, labels)
                     auc_test = AUC(outputs, labels)
+                    f1_test = F1(outputs, labels)
 
             torch.save(
                 {
@@ -80,7 +89,7 @@ def Train(model, train_dataloader, test_dataloader, path, lr=0.01, epoch_nr=200)
                 path,
             )
 
-    return best_acc, acc_test, best_auc, auc_test
+    return best_acc, acc_test, best_auc, auc_test, f1_mem, f1_test
 
 
 class Hook:
