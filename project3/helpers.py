@@ -9,8 +9,8 @@ import numpy as np
 
 class NumpyDataset(Dataset):
     def __init__(self, data, targets):
-        self.data = torch.Tensor(data)
-        self.targets = torch.LongTensor(targets.astype(int))
+        self.data = torch.tensor(data)
+        self.targets = torch.tensor(targets.astype(int))
 
     def __getitem__(self, index):
         x = self.data[index]
